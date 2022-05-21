@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t,n;
+    string p;
+    map<string,int> words;
+    cin>>t;
+    while(t--){
+        cin>>n>>p;
+        string word;
+        stringstream iss(p);
+        while(iss>>word)
+        {
+            words[word]++;
+        }
+        map<string,int>::iterator it;
+        it=words.begin();
+        while(it!=words.end()){
+            cout<< *it.first << " " << endl;
+            it++;
+        }
+    }
+}

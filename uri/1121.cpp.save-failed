@@ -1,0 +1,78 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(NULL);
+    int n,m,s,i,j,ans;
+    string row;
+    pair<int,int> aux;
+    vector<pair<int,int>> pilars;
+    vector<pair<int,int>> stickers;
+    pair<int,pair<int,int>> robot;
+    while(cin >> n >> m >> s && (n + m + s != 0)){
+            ans = 0;
+        robot = {-1,{-1,-1}};
+        i = 0;
+        while(i < n){
+            cin >> row;
+            // obtener ubicaciones de #, * y (N,S,O,E);
+            for (j = 0 ; j < m ; j++){
+                if(row[j] ==  '*') pilars.push_back({i,j});
+                else{
+                    if(row[j] == '#') pilars.push_back({i,j});
+                    else{
+                        if(row[j]!='.'){
+                            if(row[j] == 'N') robot.first = 0;
+                            if(row[j] == 'O') robot.first = 3;
+                            if(row[j] == 'S') robot.first = 2;
+                            if(row[j] == 'E') robot.first = 1;
+                            robot.second = {i,j};
+                        }
+                    }
+                }
+            }
+            i++;
+        }
+        cout<<robot.second.first<<","<<robot.second.second<<endl;
+        cin >> row;
+        for (i = 0 ; i < row.size() ; i++){
+            if(row[i] ==  'F'){
+                cout<<"avanzar ";
+                aux = robot.second;
+                if(robot.first == 0) robot.second.first++;
+                if(robot.first == 2) robot.second.first--;
+                if(robot.first == 3) robot.second.second--;
+                if(robot.first == 1) robot.second.second++;
+                cout<<"dir "<<robot.first<<endl;
+                if(find(pilars.begin(),pilars.end(), robot.second) != pilars.end()){
+                    cout<<"pilar"<<endl;
+                    robot.second = aux;
+                }
+                if(find(stickers.begin(),stickers.end(),robot.second) != stickers.end()){
+                    ans++;
+                }
+            }
+            if(row[i] == 'D'){
+                if(robot.first == 0) robot.first =  3;
+                else robot.first--;
+            }
+            if(row[i] == 'E'){
+                if(robot.first == 3) robot.first = 0;
+                else robot.first++;
+            }
+            cout<<"dir "<<robot.first<<endl;
+            cout<<robot.second.first<<","<<robot.second.second<<endl;
+        }
+        cout << ans << "\n";
+    }
+    return 0;
+}
+/*
+N -> i+ / j
+S -> i- / j
+E -> i / j+
+O -> i / j-
+ N   0
+O E 3 1
+ S   2
+*/

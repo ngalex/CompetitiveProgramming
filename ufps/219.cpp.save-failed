@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+#include <map>
+
+using namespace std;
+int main(){
+    int D,j;
+    string N;
+    char C;
+    map<int,vector<string>> B;
+    vector<vector<string>> braile;
+    while(cin>>D && D!=0){
+        cin>>C;
+        cin>>N;
+        if(C=="D"){
+            j=0;
+            while(j<3){
+                for(int i=0; i<N.size();i++){
+                    (i==N.size()-1)?cout<<B[i][j]<<" ":cout<<B[i][j]<"\n";
+                }
+                j++;
+            }
+        }else{
+
+        }
+
+
+    }
+    return 0;
+}
